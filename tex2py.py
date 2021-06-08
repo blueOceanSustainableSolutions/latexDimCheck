@@ -1,14 +1,30 @@
 import string
 
+def convert_ineq_approx(tex_str):
+    # reformat equations before splitting into LHS and RHS
+    tex_str = tex_str.replace(r'\propto', '=')
+    tex_str = tex_str.replace(r'\approx', '=')
+    tex_str = tex_str.replace(r'\leq', '=')
+    tex_str = tex_str.replace(r'\geq', '=')
+    tex_str = tex_str.replace(r'\gg', '=')
+    tex_str = tex_str.replace(r'\ll', '=')    
+    tex_str = tex_str.replace(r'\\n', '')     
+        
+    return tex_str
+    
 def convert_str(tex_str):
     # Delete special commands
     tex_str = tex_str.replace(r'\partial', ' ')
+    tex_str = tex_str.replace(r'\parder', ' ')
+    tex_str = tex_str.replace(r'\dot{m}', 'Scav')
     tex_str = tex_str.replace(r'\right]', ')')
     tex_str = tex_str.replace(r'\left[', '(')
     tex_str = tex_str.replace(r'\right\}', ')')
     tex_str = tex_str.replace(r'\left\{', '(')    
     tex_str = tex_str.replace(r'\right', ' ')
     tex_str = tex_str.replace(r'\left', ' ')
+    tex_str = tex_str.replace(r'\langle', ' ')
+    tex_str = tex_str.replace(r'\rangle', ' ')
     tex_str = tex_str.replace(r'\overline{', '(')
     tex_str = tex_str.replace(r'\overline', ' ')
     tex_str = tex_str.replace(r'\widetilde{', '(')
@@ -61,6 +77,8 @@ def convert_str(tex_str):
     tex_str = tex_str.replace(r'_{t2}', ' ')
     tex_str = tex_str.replace(r'_{v1}', ' ')
     tex_str = tex_str.replace(r'_{v_K}', ' ')
+    tex_str = tex_str.replace(r'_v', ' ')
+    tex_str = tex_str.replace(r'_l', ' ')
     tex_str = tex_str.replace(r'_w', ' ')
     tex_str = tex_str.replace(r'_{w}', ' ')
     tex_str = tex_str.replace(r'_{w1}', ' ')
