@@ -121,8 +121,8 @@ equationNum = 0
 
 for i in range(0,len(eqLineNumStart)):
   equationNum += 1
-  if np.mod(i,10) == 0:
-    print("Processed", equationNum,"equations of", len(eqLineNumStart))
+  #if np.mod(i,10) == 0:
+  #  print("Processed", equationNum,"equations of", len(eqLineNumStart))
   equation = ' '.join(lines[(eqLineNumStart[i]):(eqLineNumEnd[i]-1)])
   
   # Remove excess labels
@@ -130,7 +130,7 @@ for i in range(0,len(eqLineNumStart)):
     print("Label found in between lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1, "Move to \\begin{equation} line!\n")
     continue
   if "\\begin{cases}" in equation:
-    print("Cases found in equation:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1, "Not processed!\n")
+    print("Cases found in equation:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1, "Not processed!")
     continue
 
   # Modify inequalities and approximations
@@ -152,26 +152,29 @@ for i in range(0,len(eqLineNumStart)):
  
   # Evaluate dimensions
   try:
-    dim1 = eval(LHS, dims)
+    dimLHS = eval(LHS, dims)
   except:
     print("Undefined variable in LHS of lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1,"\n\nLHS:",equation[:equalsLoc],"\n")
-    dim1 = eval(LHS, dims) 
+    dimLHS = eval(LHS, dims) 
   try:
-    dim2 = eval(RHS, dims)
+    dimRHS = eval(RHS, dims)
   except:
     print("\nUndefined variable in RHS of lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1,"\n\nRHS:",equation[equalsLoc+1:],"\n")
     print(equation)
-    dim2 = eval(RHS, dims) 
+    dimRHS = eval(RHS, dims) 
 
 
 
-
+  # Check if dimensions are equal
   try:
-      check = dimsys_SI.equivalent_dims(dim1, dim2)
+      check = dimsys_SI.equivalent_dims(dimLHS, dimRHS)
   except:
       check = False
-  print("I need to implement final error messages",check)
+      print("\tdimension of LHS\t",dimLHS)
+      print("\tdimension of RHS\t",dimRHS)
 
+
+print("\n\nProcessed",len(eqLineNumStart),"equations. Finished")
 myFile.close()
 
 
