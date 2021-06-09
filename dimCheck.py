@@ -62,10 +62,17 @@ dims = {'alpha': 1,
         'fomega': 1,
         'fk': 1,
         'F': 1,
+        'betastar': 1,
+        'Psi': 1,
+        'psi': 1,
+        'pi': 1,
+        'T': time,
         'k': turb_kin_en,
         'l': length, # in DDES
         'L': length, # in SKL
         'p': pressure,
+        'n': 1,
+        'q': volume/area,
         'P': prod_PANS, # P' in PANS
         'Piij': RSM_specific,
         'Pij': RSM_specific,
@@ -114,40 +121,56 @@ equationNum = 0
 
 for i in range(0,len(eqLineNumStart)):
   equationNum += 1
-  print("Processed", equationNum,"equations of", len(eqLineNumStart))
-  equation = lines[eqLineNumStart[i]:eqLineNumEnd[i]-1][0]
+  if np.mod(i,10) == 0:
+    print("Processed", equationNum,"equations of", len(eqLineNumStart))
+  equation = ' '.join(lines[(eqLineNumStart[i]):(eqLineNumEnd[i]-1)])
   
   # Remove excess labels
   if "\label{" in equation:
     print("Label found in between lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1, "Move to \\begin{equation} line!\n")
     continue
+  if "\\begin{cases}" in equation:
+    print("Cases found in equation:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1, "Not processed!\n")
+    continue
 
   # Modify inequalities and approximations
-  equation = tex2py.convert_ineq_approx(equation)
+  equation = tex2py.prepare_eq(equation)
 
   # Check number of =
   if equation.count("=") != 1:
     print("Equals sign count:",equation.count("="),"Impossible to distinguish LHS and RHS for lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1, "CHECK!\n")
     continue
 
-  
+
   # Divide into LHS and RHS, and convert
   equalsLoc = str.find(equation,"=")
 
 
-  expr1 = tex2py.convert_str(equation[:equalsLoc])
-  expr2 = tex2py.convert_str(equation[equalsLoc+1:])
+  LHS = tex2py.convert_str(equation[:equalsLoc])
+  RHS = tex2py.convert_str(equation[equalsLoc+1:])
 
-  
+ 
   # Evaluate dimensions
-  dim1 = eval(expr1, dims)
-  dim2 = eval(expr2, dims)
+  try:
+    dim1 = eval(LHS, dims)
+  except:
+    print("Undefined variable in LHS of lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1,"\n\nLHS:",equation[:equalsLoc],"\n")
+    dim1 = eval(LHS, dims) 
+  try:
+    dim2 = eval(RHS, dims)
+  except:
+    print("\nUndefined variable in RHS of lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1,"\n\nRHS:",equation[equalsLoc+1:],"\n")
+    print(equation)
+    dim2 = eval(RHS, dims) 
+
+
+
 
   try:
       check = dimsys_SI.equivalent_dims(dim1, dim2)
   except:
       check = False
-print("I need to implement final error messages")
+  print("I need to implement final error messages",check)
 
 myFile.close()
 
