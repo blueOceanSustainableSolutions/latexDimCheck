@@ -170,6 +170,9 @@ for i in range(0,len(eqLineNumStart)):
       check = dimsys_SI.equivalent_dims(dimLHS, dimRHS)
   except:
       check = False
+      print("\nInconsistent dimensions found in lines:", eqLineNumStart[i],"to",eqLineNumEnd[i]-1)
+      print("\t\tLHS:",equation[:equalsLoc])
+      print("\t\tRHS:",equation[equalsLoc+1:])
       print("\tdimension of LHS\t",dimLHS)
       print("\tdimension of RHS\t",dimRHS)
 
