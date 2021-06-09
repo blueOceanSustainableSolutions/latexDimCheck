@@ -18,6 +18,7 @@ viscosity_kin = length**2/time
 dissip_rate = 1/time
 turb_dissip_rate = length**2/time**3
 
+
 # Define derived dimensions
 force = mass*acceleration
 pressure = force/area
@@ -32,46 +33,47 @@ prod_PANS = density*turb_kin_en/viscosity_kin
 RSM_specific = turb_dissip_rate
 RSM_specStress = stress/density
 cavitySourceTerm = mass/(volume*time)
+constant = time/time
 
 # Assignment of dimensions
-dims = {'alpha': 1,
-        'beta': 1,
-        'betaomega': 1,
-        'delta': 1, # Kronecker delta in RSM
+dims = {'alpha': constant,
+        'beta': constant,
+        'betaomega': constant,
+        'delta': constant, # Kronecker delta in RSM
         'epsilon': turb_dissip_rate,
-        'kappa': 1,
+        'kappa': constant,
         'mu': viscosity_dyn,
         'nu': viscosity_kin,
         'omega': dissip_rate,
         'Omega': dissip_rate, # in RSM
         'Phi': viscosity_kin, # in SKL and kSkL
         'rho': density,
-        'sigma': 1,
-        'sigmak': 1,
-        'sigmaomega': 1,
+        'sigma': constant,
+        'sigmak': constant,
+        'sigmaomega': constant,
         'tau': stress,
-        'zeta': 1,
-        'a': 1, # anisotropy tensor in RSM
+        'zeta': constant,
+        'a': constant, # anisotropy tensor in RSM
         'b': acceleration, # bodyforce in NS?
-        'C': 1,
+        'C': constant,
         'd': length, # distance in SA, kSkL
-        'D': 1,
+        'D': constant,
         'Dij': RSM_specific,
         'E': turb_kin_en, # E in Menter?
-        'f': 1,
-        'fomega': 1,
-        'fk': 1,
-        'F': 1,
-        'betastar': 1,
-        'Psi': 1,
-        'psi': 1,
-        'pi': 1,
+        'f': constant,
+        'fomega': constant,
+        'fk': constant,
+        'F': constant,
+        'betastar': constant,
+        'Psi': constant,
+        'psi': constant,
+        'pi': constant,
         'T': time,
         'k': turb_kin_en,
         'l': length, # in DDES
         'L': length, # in SKL
         'p': pressure,
-        'n': 1,
+        'n': constant,
         'q': volume/area,
         'P': prod_PANS, # P' in PANS
         'Piij': RSM_specific,
