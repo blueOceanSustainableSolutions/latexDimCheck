@@ -101,7 +101,7 @@ The approach to resolving and modelling turbulence employed in this work is the 
 \end{equation}
 and
 \begin{equation}
-\parder{\langle \rho U_i \rangle}{t} + \langle U_j \rangle \parder{\langle \rho U_i \rangle}{x_j} = -\parder{\langle P \rangle}{x_i} + \parder{}{x_j} \left[\nu \left(\parder{\langle \rho U_i \rangle}{x_j} + \parder{\langle \rho U_j \rangle}{x_i}\right)\right]  + \parder{\tau (u_i,u_j)}{x_j}.
+\parder{\langle \rho U_i \rangle}{t} + \langle U_j \rangle \parder{\langle \rho U_i \rangle}{x_j} = -\parder{\langle P \rangle}{x_i} + \parder{}{x_j} \left[\nu \left(\parder{\langle \rho U_i \rangle}{x_j} + \parder{\langle \rho U_j \rangle}{x_i}\right)\right]  + \parder{\tau(u_i,u_j)}{x_j}.
 \end{equation}
 In these equations $U_i$ denotes the velocity components, $P$ the static pressure, $\nu$ the kinematic viscosity and $\rho$ the density. The subscripts $l$ and $v$ indicate liquid and vapour phases respectively, symbols without subscript refer to the mixture quantities, defined according to
 \begin{align}\label{eq.mixtureProperties}
@@ -177,7 +177,7 @@ and is added to maintain mass conservation in the cells of the turbulence genera
 \label{sec.cavitationModel}
 The multiphase flow is modelled using the homogeneous mixture Eulerian Volume of Fluid approach. An additional transport equation is solved for the vapour volume fraction, $\alpha_v=\mathcal{V}_v/(\mathcal{V}_v+\mathcal{V}_l)$, with $\mathcal{V}$ indicating the phase volume. The transport equation is formulated as
 \begin{equation}
-\frac{\mathrm{D} \alpha_{v}}{\mathrm{D}t}=\frac{\dot{m}}{\rho_{v}}\,.
+\frac{\mathrm{D} \alpha_{v}}{\mathrm{D}t}=\frac{\dot{m}}{\rho_{v}}.
 \end{equation}
 From $\alpha_v$ the mixture properties can be calculated using Eq.~\ref{eq.mixtureProperties}, under the condition that
 \begin{equation}
