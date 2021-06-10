@@ -1,0 +1,217 @@
+\documentclass[a4paper,10pt,preprint,3p]{elsarticle}
+\usepackage{graphicx,calc}
+
+\usepackage[latin1]{inputenc}
+\usepackage{rotate}
+\usepackage{xspace}
+\usepackage{natbib}
+\usepackage{hyperref}
+\setcitestyle{numbers,sort&compress}
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{epstopdf}
+\usepackage{rotating}
+\usepackage{color}
+\usepackage{epstopdf}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{siunitx} % Formats the units and values
+\usepackage{tabularx}
+\usepackage{scalerel,stackengine}
+
+
+\pdfoptionpdfminorversion=7
+%\usepackage{breakurl}
+\def\UrlBreaks{\do\/\do-}
+
+% Load additional math commands
+\input{../Thesis/Tex/Commands}
+%\loadglsentries{./Tex/Glossary}
+
+
+%---------------------------------------------------------------------------------
+
+
+
+% Setup siunitx:
+\sisetup{
+  round-mode          = places, % Rounds numbers
+  round-precision     = 2, % to 2 places
+}
+
+
+\begin{document}
+
+
+
+
+
+
+%-----------------------------------------------------------------------
+
+
+% Throughout this work the nomenclature as adopted on the cluster is maintained, therefore the Courant number applied for the PANS simulations are [5,2,1]. In the text the Courant numbers are modified to represent their true maximum value at the midplane in the domain, namely [3,1.5,0.74].
+% DISTURB-DFM: Development/Direct Inflow Synthetic TURbulence Bodyforcing Digital Filtering Method
+% DISTURB-2DFM: Development/Direct Inflow Synthetic TURbulence Bodyforcing Divergence Free Digital Filtering Method
+
+
+\begin{frontmatter}
+
+
+  \title{On the use of synthetic inflow turbulence for scale-resolving simulations of wetted and cavitating flows}  
+  \author[1,2]{M. Klapwijk\corref{cor1}}
+  \ead{m.d.klapwijk@outlook.com}
+  \author[2]{T. Lloyd}
+  \author[3]{G. Vaz}
+  \author[1,2]{T. van Terwisga}
+  \cortext[cor1]{Corresponding author}
+
+
+  \address[1]{Delft University of Technology, Mekelweg 2,	2628 CD, Delft, The Netherlands}
+  \address[2]{Maritime Research Institute Netherlands, Haagsteeg 2, 6708 PM, Wageningen, The Netherlands}
+  \address[3]{WavEC - Offshore Renewables,   Edif\'icio Diogo C\~{a}o, Doca de Alc\^{a}ntara Norte, 1350-352 Lisbon, Portugal}
+
+
+
+
+
+  \begin{abstract}
+    This is the methodology section of the paper: \textit{On the use of synthetic inflow turbulence for scale-resolving simulations of wetted and cavitating flows}, by M.\ Klapwijk}, T.\ Lloyd, G.\ Vaz, T.\ van Terwisga. \href{https://doi.org/10.1016/j.oceaneng.2021.108860}{Ocean Engineering} \textbf{228}, 108860 (2021).
+    It serves as an example `real' LaTeX file, to be processed by the latexDimCheck script
+  \end{abstract}
+
+
+\end{frontmatter}
+
+
+
+
+
+
+
+
+
+\section{Mathematical modelling approaches}
+\label{sec.turbulenceModels}
+The approach to resolving and modelling turbulence employed in this work is the partially averaged Navier-Stokes (PANS) method \cite{girimaji2005partially}. In this methodology, the instantaneous quantities, $\Phi$, are decomposed into a resolved, $\langle\Phi\rangle$, and a modelled (unresolved) component, $\phi$. Applying this decomposition to the conservation of mass and Navier-Stokes equations for a Newtonian fluid, including phase change by cavitation, yields,
+\begin{equation}\label{eq.continuity}
+	\parder{\langle \rho U_i\rangle}{x_i} = \left(\frac{1}{\rho_v} - \frac{1}{\rho_l}\right) \dot{m}
+\end{equation}
+and
+\begin{equation}
+\parder{\langle \rho U_i \rangle}{t} + \langle U_j \rangle \parder{\langle \rho U_i \rangle}{x_j} = -\parder{\langle P \rangle}{x_i} + \parder{}{x_j} \left[\nu \left(\parder{\langle \rho U_i \rangle}{x_j} + \parder{\langle \rho U_j \rangle}{x_i}\right)\right]  + \parder{\tau(u_i,u_j)}{x_j}.
+\end{equation}
+In these equations $U_i$ denotes the velocity components, $P$ the static pressure, $\nu$ the kinematic viscosity and $\rho$ the density. The subscripts $l$ and $v$ indicate liquid and vapour phases respectively, symbols without subscript refer to the mixture quantities, defined according to
+\begin{align}\label{eq.mixtureProperties}
+\rho = \alpha_v \rho_v + \left(1-\alpha_v\right) \rho_l && \mathrm{and} && \nu = \alpha_v \nu_v + \left(1-\alpha_v\right) \nu_l.
+\end{align}
+$\alpha_v$ and $\dot{m}$ indicate the vapour volume fraction and source term provided by the cavitation model (see Section~\ref{sec.cavitationModel}), and $\tau (u_i,u_j)$ denotes the modelled Reynolds stress tensor, which is computed using Boussinesq's hypothesis,
+\begin{equation}\label{eq.Boussinesq}
+\tau (u_i,u_j) = \langle U_i U_j \rangle - \langle U_i \rangle \langle U_j \rangle = 2 \nu_t \langle S_{ij} \rangle - \frac{2}{3} k \delta_{ij},
+\end{equation}
+with $\nu_t$ the eddy-viscosity, $k$ the modelled turbulence kinetic energy, $\delta_{ij}$ the Kronecker delta and $S_{ij}$ the resolved strain-rate tensor, defined as
+\begin{equation}
+\langle S_{ij} \rangle = \frac{1}{2} \left(\parder{\langle U_i \rangle}{x_j} + \parder{\langle U_j \rangle}{x_i}\right).
+\end{equation}
+To close the set of equations a RANS model is used. The PANS model in this work is based on the $k-\omega$ SST model \citep{pereira2018simulation,menter2003ten}. The transport equations of the SST model are reformulated to include the ratio of modelled-to-total turbulence kinetic energy and dissipation rate,
+\begin{align}
+	f_k = \frac{k}{K} && \textrm{and} && f_{\omega} = \frac{\omega}{\Omega} = \frac{f_{\epsilon}}{f_k}.
+\end{align}
+This leads to the modified transport equations
+\begin{equation}\label{eq.PANSk}
+\matder{\rho k}{t} = P_k - \beta^* \rho \omega k + \parder{}{x_j} \left[ \left(\rho \nu + \rho \nu_t \sigma_k \frac{f_{\omega}}{f_k} \right) \parder{k}{x_j}\right]
+\end{equation}
+and
+\begin{equation}\label{eq.PANSomega}
+\matder{\rho \omega}{t} = \frac{\alpha}{\nu_t} P_k - \left(P' - \frac{P'}{f_{\omega}} + \frac{\beta \omega}{f_{\omega}}\right) \rho \omega + \parder{}{x_j} \left[ \left(\rho \nu + \rho \nu_t \sigma_{\omega} \frac{f_{\omega}}{f_k} \right) \parder{\omega}{x_j}\right] + 2 \frac{\rho \sigma_{\omega2}}{\omega} \frac{f_{\omega}}{f_k} (1-F_1) \parder{k}{x_j} \parder{\omega}{x_j},
+\end{equation}
+with
+\begin{align}\label{eq.PANS_eddyviscosity}
+ P_k = \rho \min\left(\nu_t \langle S \rangle , 10\beta^* k \omega\right), &&	P' = \frac{\alpha \beta^* \rho k}{\nu_t} && \textrm{and} && \nu_t = \frac{a_1 k}{\max\left(a_1 \omega ; \left< S \right> F_2\right)}.
+\end{align}
+For the model constants and auxiliary functions, $F_1$ and $F_2$, see \citet{menter2003ten}, while for more details on the implementation of the PANS model used here, the reader is referred to \citet{pereira2015assessment}.
+
+The filtering of the Navier-Stokes equations depends on the values chosen for $f_k$ and $f_{\epsilon}$. $f_k$ determines the physical resolution of the flow, i.e. to what extent the turbulence spectrum is resolved. $f_{\epsilon}$ determines the overlap between the energy-containing and the dissipation ranges. Following \citet{klapwijk2019pans}, $f_{\epsilon} = 1.0$ to avoid adding excessive dissipation. $f_k$ can either vary in space and time, or be kept constant in the domain. The drawback of the first approach is that this entangles the modelling error and numerical error, thereby destroying one of the key advantages of the PANS model. As shown in \citet{klapwijk2019accuracy}, there is no consensus on what estimate for $f_k$ to use, and the estimates are unreliable in boundary layers and problematic to apply in combination with inflow turbulence. Consequently, in this work constant, \textit{a priori} chosen, values of $f_k$ ($1.00$, $0.75$, $0.50$, $0.25$ and $0.00$) are employed. By definition, PANS computations using $f_k = 0.00$ are equal to implicit LES computations, also sometimes referred to as underresolved DNS, where it is assumed that the added numerical diffusion due to the use of coarse(r) grids and low order (upwinding) schemes acts as a sub-filter model. Previous studies in \cite{klapwijk2019accuracy} showed that the real ratio of modelled-to-total levels of turbulence solved is lower than the \textit{a priori} chosen values, which is a desirable conservative characteristic of the approach.
+
+
+
+
+\subsection{Synthetic turbulence generator}
+\label{sec.turbulenceGeneratorFormulation}
+Synthetic inflow turbulence is generated using the method developed in \citet{klapwijk2020evaluation}, which is a modified version of the digital filter method by \citet{xie2008efficient} and \citet{kim2013divergence}. In this method, random numbers, $r_{m,l,i}$, with a zero mean and unit variance, are generated on a Cartesian grid at each time step. Here $m,l$ indicate the position indices and $i$ the velocity component. These numbers are spatially correlated using
+\begin{equation}
+\psi_{m,l,i} = \sum\limits_{j = -N}^{N}\sum\limits_{k = -N}^{N} b_j b_k r_{m+j,l+k,i},
+\end{equation}
+after which they are temporally correlated with the numbers generated during the previous time step using
+\begin{equation}
+\Psi_i\left(t\right) = \Psi_i\left(t - \Delta t\right) \exp\left(-\frac{\pi \Delta t}{2 \mathcal{T}}\right) + \psi_i\left(t\right) \left[1 - \exp\left(-\frac{\pi \Delta t}{2 \mathcal{T}}\right) \right].
+\end{equation}
+Here $\mathcal{T} = \mathcal{L} / U_i$ is the Lagrangian time scale based on the desired integral length scale $\mathcal{L}$. $b_j$ and $b_k$ are filter coefficients used to generate spatial correlations. The spatially and temporally correlated numbers are transformed to velocity fluctuations using
+\begin{equation}\label{eq.uprime}
+u_i' = a_{ij} \cdot \Psi_i,
+\end{equation}
+in which $a_{ij}$ indicates the Lund transformation matrix, which is based on a Cholesky decomposition of the desired Reynolds stress tensor $\tau_{ij}$. Following \citet{klapwijk2020evaluation}, the velocity fluctuations are transformed to body-forces term in the momentum equations, explicitly added on the right hand side of the equations. Note that in the current work a string of pseudo-random numbers, i.e. the same range of random numbers for every computation, is used, to compare different computations.
+
+To improve the iterative convergence, a divergence-free velocity field is enforced by adding a source term, $S_{TG}$, to the mass equation every non-linear loop. This source term is computed by computing the flux, $q_{f_c}$, through each face for every cell $c$ of the turbulence generator,
+\begin{equation}\label{eq.TG_sourceTermCorrection}
+q_{f_c} = \int_S \left( \langle \mathbf{U} \rangle \cdot \mathbf{n} \right) \mathrm{d} S.
+\end{equation}
+The source term equals a summation of the fluxes over the $N_f$ faces,
+\begin{equation}
+S_{TG}(c) = - \sum\limits_{c = 1}^{N_f} q_{f_c},
+\end{equation}
+and is added to maintain mass conservation in the cells of the turbulence generator.
+
+
+
+
+
+
+
+
+
+
+\subsection{Cavitation model}
+\label{sec.cavitationModel}
+The multiphase flow is modelled using the homogeneous mixture Eulerian Volume of Fluid approach. An additional transport equation is solved for the vapour volume fraction, $\alpha_v=\mathcal{V}_v/(\mathcal{V}_v+\mathcal{V}_l)$, with $\mathcal{V}$ indicating the phase volume. The transport equation is formulated as
+\begin{equation}
+\frac{\mathrm{D} \alpha_{v}}{\mathrm{D}t}=\frac{\dot{m}}{\rho_{v}}.
+\end{equation}
+From $\alpha_v$ the mixture properties can be calculated using Eq.~\ref{eq.mixtureProperties}, under the condition that
+\begin{equation}
+\alpha_l + \alpha_v = 1.
+\end{equation}
+The source term $\dot{m}$ is modelled by the Schnerr-Sauer cavitation model \cite{schnerr2001physical,hoekstra2009partial}, which is based on the linearised Rayleigh-Plesset equation for bubble dynamics and reads,
+\begin{equation}
+  \frac{\dot{m}}{\rho_v} =
+  \begin{cases}
+   4\pi R_B^2n_b(1-\alpha_v)\sqrt{\frac{2}{3}\frac{|p_v-p|}{\rho_l}}, & \text{if } p<p_v; \\
+   -\frac{3\alpha_v}{R_B}\sqrt{\frac{2}{3}\frac{|p_v-p|}{\rho_l}},    & \text{if } p>p_v.
+  \end{cases}
+\end{equation}
+The dependence on the local pressure leads to an vastly simplified inception criterion compared to reality, but the method is widely applied in literature. $R_B$ indicates the maximum bubble radius, $n_b$ the bubble concentration, and $p_v$ the vapour pressure. In the present study, the bubble radius and concentration were set to $n_b =1 \times 10^8$ and $R_B = 1 \times 10^{-5}$, respectively, based on \cite{vaz2017improved}.
+
+
+
+
+
+
+
+
+\footnotesize
+\setlength{\bibsep}{0pt plus 0.3ex}
+\bibliographystyle{elsarticle-num-names}
+\bibliography{bibtex}
+
+
+
+
+
+
+%-----------------------------------------------------------------------s
+
+
+
+\end{document}
