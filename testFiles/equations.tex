@@ -1,0 +1,121 @@
+
+#----------------------------------------------------------------------------#
+# Navier-Stokes
+\begin{equation}
+\frac{\partial \left(\rho U_i \right)}{\partial t}+ \frac{\partial \left( \rho U_i U_j \right)}{\partial x_j} =- \frac{\partial p}{\partial x_i} +\frac{\partial \tau^{\star}_{ij}}{\partial x_j} +\rho b_i
+\end{equation}
+
+# Menter
+\begin{equation}
+\frac{\partial \rho \widetilde{\nu}}{\partial t}+\frac{\partial}{\partial x_j} \left(\rho \widetilde{\nu} U_j\right) = C_1 D_1 \rho\widetilde{\nu}\widetilde{S} - C_2 E_{1e}\rho + \frac{\partial}{\partial x_j} \left[ \rho \left( \nu + \frac{\widetilde{\nu}}{\sigma} \right) \frac{\partial \widetilde{\nu}}{\partial x_j}\right]
+\end{equation}
+
+# Spalart-Allmaras
+\begin{equation}
+\frac{\partial \rho \widetilde{\nu}}{\partial t}+\frac{\partial}{\partial x_j} \left(\rho \widetilde{\nu} U_j \right) = C_{b1}\left(1-f_{v1}\right)\rho\widetilde{S}\widetilde{\nu}+\frac{1}{\sigma} \left\{ \frac{\partial}{\partial x_j} \left[\rho\left(\nu + \widetilde{\nu}\right)\frac{\partial\widetilde{\nu}}{\partial x_j}\right] + C_{b2} \rho \frac{\partial\widetilde{\nu}}{\partial x_j}\frac{\partial \widetilde{\nu}}{\partial x_j} \right\}-\left(C_{w1} f_w -\frac{C_{b1}}{\kappa^2}f_{t2}\right)\rho\left(\frac{\widetilde{\nu}}{d}\right)^2 + f_{t1}\rho \Delta U^2
+\end{equation}
+
+# SKL
+\begin{equation}
+\frac{\partial \rho \Phi}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho \Phi U_j \right) = \frac{\Phi}{\widetilde{k}} \rho\nu_t S^2 \left( \zeta_1 - \zeta_2 \left( \frac{L}{L_{v_K}} \right)^2 \right) - \zeta_3 \rho\widetilde{k} + \frac{\partial }{\partial x_j} \left[ \rho \left( \nu + \frac{\nu_t}{\sigma_{\Phi}} \right) \frac{\partial \Phi}{\partial x_j} \right] - 6\rho\nu \frac{\Phi}{d^2} f_\Phi
+\end{equation}
+
+# k-epsilon standard
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho k U_j \right) = \tau_{ij} \frac{\partial U_i}{\partial x_j} - \rho\epsilon + \frac{\partial}{\partial x_j} \left[ \rho\left(\nu + \frac{\nu_t}{\sigma_k}\right)\frac{\partial k}{\partial x_j} \right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho\epsilon}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho\epsilon U_j \right) = C_{\epsilon1}\frac{\epsilon}{k}\tau_{ij}\frac{\partial U_i}{\partial x_j} - C_{\epsilon2}\rho\frac{\epsilon^2}{k} + \frac{\partial}{\partial x_j}\left[\rho\left(\nu + \frac{\nu_t}{\sigma_{\epsilon}}\right)\frac{\partial \epsilon}{\partial x_j} \right]
+\end{equation}
+
+# k-epsilon AKN
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho k U_j \right) = \rho\nu_t S^2 - \rho\epsilon + \frac{\partial }{\partial x_j} \left[ \rho\left(\nu + \frac{\nu_t}{\sigma_k} \right) \frac{\partial k}{\partial x_j} \right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho\epsilon}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho\epsilon U_j \right) = C_{\epsilon1} \frac{\epsilon}{k} \rho\nu_t S^2 - C_{\epsilon2}f_{\epsilon2}\rho\frac{\epsilon^2}{k} + \frac{\partial }{\partial x_j}  \left[  \rho\left(\nu + \frac{\nu_t}{\sigma_\epsilon} \right) \frac{\partial \epsilon}{\partial x_j} \right]
+\end{equation}
+
+# k-omega original Wilcox
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho k U_j \right) = \tau_{ij}\frac{\partial U_i}{\partial x_j} - \beta^{\star} \rho k \omega + \frac{\partial}{\partial x_j}\left[ \rho\left(\nu + \sigma^{\star} \nu_t\right)\frac{\partial k}{\partial x_j}\right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho \omega}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho \omega U_j \right) = \alpha \frac{\omega}{k}\tau_{ij}\frac{\partial U_i}{\partial x_j} - \beta \rho\omega^2 + \frac{\partial}{\partial x_j}\left[ \rho\left(\nu + \sigma^{\star} \nu_t\right)\frac{\partial \omega}{\partial x_j}\right]
+\end{equation}
+
+# k-tau
+###
+###
+
+# k-omega TNT
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho k U_j \right) = P_k - \beta^{\star}\rho\omega k + \frac{\partial }{\partial x_j}  \left[  \rho\left(\nu + \nu_t\sigma_k \right) \frac{\partial k}{\partial x_j} \right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho \omega}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho \omega U_j \right) = \frac{\alpha}{\nu_t}P_k - \beta\rho\omega^2 + \frac{\partial }{\partial x_j}  \left[  \rho\left( \nu + \nu_t\sigma_\omega \right) \frac{\partial \omega}{\partial x_j} \right]  + \rho\frac{\sigma_{d}}{\omega} \frac{\partial k}{\partial x_j}\frac{\partial \omega}{\partial x_j}
+\end{equation}
+
+# k-omega SST
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_{j}}\left(\rho U_{j}k \right) = P_{k}-\beta^{\star} \rho k \omega+\frac{\partial}{\partial x_{j}}\left[\left(\mu + \sigma_{k}\mu_{t}\right)\frac{\partial k}{\partial x_{j}}\right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho \omega}{\partial t} + \frac{\partial}{\partial x_{j}}\left(\rho U_{j}\omega \right) = P_{\omega}-\beta \rho \omega^{2} + \frac{\partial}{\partial x_{j}}\left[\left(\mu + \sigma_{\omega}\mu_{t}\right)\frac{\partial \omega}{\partial x_{j}}\right] + 2 \rho \left(1-F_1\right) \frac{\sigma_{\omega 2}}{\omega} \frac{\partial k}{\partial x_{j}}\frac{\partial \omega}{\partial x_{j}}
+\end{equation}
+
+# kSkL
+\begin{equation}
+\frac{\partial \rho k}{\partial t}+\frac{\partial}{\partial x_{j}}(\rho U_{j}k) = P_{k}-C_{\mu}^{\frac{3}{4}}\rho \frac{k^{2}}{\Phi} - 2 \mu \frac{k}{d^2} + \frac{\partial}{\partial x_{j}} \left[\left(\mu+\frac{\mu_{t}}{\sigma_{k}}\right)\frac{\partial k}{\partial x_{j}}\right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho \Phi}{\partial t}+\frac{\partial}{\partial x_{j}}\left(\rho U_{j}\Phi\right) = \frac{\Phi}{k}P_{k}\left[\zeta_{1}-\zeta_{2}\left(\frac{L}{L_{v_K}}\right)^{2}\right]-\zeta_{3}\rho k - 6 \mu \frac{\Phi}{d^2}f_{\Phi}+\frac{\partial}{\partial x_{j}}\left[\left(\mu+\frac{\mu_{t}}{\sigma_{\Phi}}\right)\frac{\partial \Phi}{\partial x_{j}}\right]
+\end{equation}
+
+# Full RSM
+\begin{equation}
+\frac{\partial \rho R_{ij}}{\partial t}+\frac{\partial}{\partial x_{j}}\left(\rho U_{j} R_{ij} \right) = \rho P_{ij} + \rho \Pi_{ij} - \rho \epsilon_{ij} + \rho D_{ij}
+\end{equation}
+
+\begin{equation}
+P_{ij} = - R_{ik} \frac{\partial U_j}{\partial x_k} - R_{jk} \frac{\partial U_i}{\partial x_k}
+\end{equation}
+
+\begin{equation}
+\Pi_{ij} = - \left( \beta^{\star}C_1 k \omega + C_1^{\star} P_{kk}/2 \right)  a_{ij} + \beta^{\star}C_2 k \omega \left( a_{ik} a_{kj} -   a_{kl} a_{kl} \delta_{ij}/3 \right) + \left( C_3 - C_3^{\star} \sqrt{ a_{kl} a_{kl}} \right) k S_{ij} + C_4  k \left( a_{ik} S_{jk} + a_{jk}  S_{ik} - 2a_{kl}  S_{kl} \delta_{ij}/3 \right) + C_5   k \left(  a_{ik}  \Omega_{jk} +  a_{jk}  \Omega_{ik} \right)
+\end{equation}
+
+\begin{equation}
+\rho D_{ij} = \frac{\partial}{\partial x_j}\left[\left(\nu+\nu_t\frac{C_6}{\beta^{\star}}\right)\frac{\partial\tau_{ij}}{\partial x_j}\right]
+\end{equation}
+
+# DDES
+\begin{equation}
+\frac{\partial \rho k}{\partial t}+\frac{\partial}{\partial x_{j}}\left(\rho U_{j}k \right) = P_k - \frac{\rho k^{\frac{3}{2}}}{l_t} + \frac{\partial}{\partial x_j} \left(\rho\left(\nu + \nu_t \sigma_k\right)\frac{\partial k}{\partial x_j}\right)
+\end{equation}
+
+# XLES
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho k U_j \right) = P_k -\frac{\rho k^{\frac{3}{2}}}{l_t}  +\frac{\partial }{\partial x_j}  \left[ \rho \left(\nu+\nu_t\sigma_k \right) \frac{\partial k}{\partial x_j} \right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho \omega}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho \omega U_j \right) = P_{\omega} - \beta_{\omega} \rho \omega^2 + \frac{\sigma_d \rho}{\omega} \frac{\partial k}{\partial x_i}\frac{\partial \omega}{\partial x_i} + \frac{\partial}{\partial x_j} \left(\rho \left(\nu + \sigma_{\omega} \nu_t \right) \frac{\partial \omega}{\partial x_j}\right)
+\end{equation}
+
+# PANS
+\begin{equation}
+\frac{\partial \rho k}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho k U_j \right) = P_k - \beta^{\star} \rho \omega k + \frac{\partial}{\partial x_j} \left[\rho \left(\nu + \nu_t \sigma_k \frac{f_{\omega}}{f_k} \right) \frac{\partial k}{\partial x_j}\right]
+\end{equation}
+
+\begin{equation}
+\frac{\partial \rho \omega}{\partial t} + \frac{\partial}{\partial x_j} \left(\rho \omega U_j \right) = \frac{\alpha}{\nu_t} P_k - \left(P' - \frac{P'}{f_{\omega}} + \frac{\beta \rho \omega}{f_{\omega}}\right) \omega + \frac{\partial}{\partial x_j} \left[ \rho\left(\nu + \nu_t \sigma_{\omega} \frac{f_{\omega}}{f_k} \right) \frac{\partial \omega}{\partial x_j}\right] + 2 \frac{\sigma_{\omega2} \rho}{\omega} \frac{f_{\omega}}{f_k} (1-F_1) \frac{\partial k}{\partial x_j} \frac{\partial \omega}{\partial x_j}
+\end{equation}
+
+

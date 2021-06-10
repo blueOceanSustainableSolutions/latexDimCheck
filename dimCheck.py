@@ -95,6 +95,7 @@ dims = {'alpha': constant,
 #----------------------------------------------------------------------------#
 #### Main
 inputFile = "testFiles/KLAPWIJKetal2021.tex"
+#inputFile = "testFiles/equations.tex"
 
 stringToSearch = "equation"
 
