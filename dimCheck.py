@@ -6,6 +6,7 @@ import tex2py
 
 from sympy.physics.units.systems.si import dimsys_SI
 from sympy.physics.units import time, length, mass
+from sympy.parsing.latex import parse_latex
 
 import numpy as np
 
