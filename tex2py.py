@@ -148,6 +148,18 @@ def convert_str(tex_str):
     tex_str = tex_str.replace(' / ', '/')
     tex_str = tex_str.replace(' /', '/')
     tex_str = tex_str.replace('/ ', '/')
+
+    # Replace numbers by arbitrary constant    
+    tex_str = tex_str.replace('0', 'C')
+    tex_str = tex_str.replace('1', 'C')
+    tex_str = tex_str.replace('2', 'C')
+    tex_str = tex_str.replace('3', 'C')
+    tex_str = tex_str.replace('4', 'C')
+    tex_str = tex_str.replace('5', 'C')
+    tex_str = tex_str.replace('6', 'C')
+    tex_str = tex_str.replace('7', 'C')
+    tex_str = tex_str.replace('8', 'C')
+    tex_str = tex_str.replace('9', 'C')
     
     # Replace empty brackets (e.g. if only \partial in numerator)
     tex_str = tex_str.replace('( )', '1')

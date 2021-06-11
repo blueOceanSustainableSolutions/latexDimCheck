@@ -90,12 +90,14 @@ dims = {'alpha': constant,
         'U': speed,
         'x': length,
         'Scav' : cavitySourceTerm,
-        'xk': length}
+        'xk': length,  
+        }
 
 #----------------------------------------------------------------------------#
 #### Main
 inputFile = "testFiles/KLAPWIJKetal2021.tex"
 #inputFile = "testFiles/equations.tex"
+
 
 stringToSearch = "equation"
 
@@ -152,7 +154,6 @@ for i in range(0,len(eqLineNumStart)):
   LHS = tex2py.convert_str(equation[:equalsLoc])
   RHS = tex2py.convert_str(equation[equalsLoc+1:])
 
- 
   # Evaluate dimensions
   try:
     dimLHS = eval(LHS, dims)
